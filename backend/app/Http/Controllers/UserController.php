@@ -48,4 +48,18 @@ class UserController extends Controller
             ], 500);
         }
     }
+    public function logout()
+    {
+        try {
+            Auth::user()->token()->revoke();
+            return response([
+                'message'=>'Has cerrado sesión',
+            ]);
+        } catch (\Exception $e) {
+            return response ([
+                'message'=> 'Error al intentar desconectarte',
+                'error'=>$e->getMessage()
+            ], 500);
+        }
+    }
 }
