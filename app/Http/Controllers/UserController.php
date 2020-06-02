@@ -84,4 +84,16 @@ class UserController extends Controller
             ], 500);
         }
     }
+    public function getUserInfo()
+    {
+        try {
+            $user = Auth::user();
+            return response($user);
+        } catch (\Exception $e) {
+            return response([
+                'message' => 'Hubo un error al mostrar la información',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
