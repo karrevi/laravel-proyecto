@@ -53,12 +53,34 @@ class UserController extends Controller
         try {
             Auth::user()->token()->revoke();
             return response([
-                'message'=>'Has cerrado sesión',
+                'message' => 'Has cerrado sesión',
             ]);
         } catch (\Exception $e) {
-            return response ([
-                'message'=> 'Error al intentar desconectarte',
-                'error'=>$e->getMessage()
+            return response([
+                'message' => 'Error al intentar desconectarte',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    public function update(Request $request)
+    {
+        try {
+            $body = $request->validate([
+                'name' => 'string',
+                'email' => 'string',
+                'password' => 'string'
+            ]);
+            $id = Auth::id();
+            $user = User::find($id);
+            if ($request->has('password')) {
+                $body['password'] = Hash::make($body['password']);
+            }
+            $user->update($body);
+            return response($user);
+        } catch (\Exception $e) {
+            return response([
+                'message' => 'Hubo un error al actualizar el usuario',
+                'error' => $e->getMessage()
             ], 500);
         }
     }
