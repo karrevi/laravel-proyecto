@@ -76,7 +76,10 @@ class UserController extends Controller
                 $body['password'] = Hash::make($body['password']);
             }
             $user->update($body);
-            return response($user);
+            return response([
+                'user' => $user,
+                'message' => 'El usuario ha sido actualizado'
+            ]);
         } catch (\Exception $e) {
             return response([
                 'message' => 'Hubo un error al actualizar el usuario',
