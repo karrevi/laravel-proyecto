@@ -40,7 +40,6 @@ class UserController extends Controller
                 'user' => $user,
                 'token' => $token
             ]);
-            dd($token);
         } catch (\Exception $e) {
             return response([
                 'message' => 'Hubo un problema al loguearte',
@@ -96,6 +95,24 @@ class UserController extends Controller
             return response([
                 'message' => 'Hubo un error al mostrar la información',
                 'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    public function uploadImage(Request $request, $id)
+    {
+        try {
+            $request->validate(['img' => 'required|image']);
+            $user = User::find($id);
+            $imageName = time() . '-' . request()->img->getClientOriginalName();
+            request()->img->move('images/users', $imageName);
+            $user->update(['image_path' => $imageName]);
+            return response([
+                'user' => $user,
+                'message' => 'La imagen ha sido cambiada'
+            ]);
+        } catch (\Exception $e) {
+            return response([
+                'error' => $e,
             ], 500);
         }
     }

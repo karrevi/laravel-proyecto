@@ -26,6 +26,7 @@ Route::prefix('v1')->group(function () {
             Route::get('info', 'UserController@getUserInfo');
             Route::get('logout', 'UserController@logout');
             Route::put('update', 'UserController@update');
+            Route::post('/image/{id}', 'UserController@uploadImage');
         });
     });
 });
