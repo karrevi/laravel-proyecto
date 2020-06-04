@@ -116,4 +116,27 @@ class UserController extends Controller
             ], 500);
         }
     }
+    public function addComment(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                'body' => 'string',
+                'stars' => 'required|integer|min:1|max:5'
+            ]);
+            $body = $request->all();
+            $user = User::find($id);
+            $body['user_id'] = Auth::id();
+            $comments = $user->comments()->where('user_id', $body['user_id'])->get();
+            if ($comments->isNotEmpty()) {
+                return response([
+                    'message' => 'No puedes comentar dos veces'
+                ], 400);
+            }
+            $comment = new Comment($body);
+            $user->comments()->save($comment);
+            return response($user->load('comments.user'));
+        } catch (\Exception $e) {
+            return response($e, 500);
+        }
+    }
 }
