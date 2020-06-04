@@ -26,7 +26,15 @@ Route::prefix('v1')->group(function () {
             Route::get('info', 'UserController@getUserInfo');
             Route::get('logout', 'UserController@logout');
             Route::put('update', 'UserController@update');
+            Route::post('comment/{id}', 'UserController@addComment');
             Route::post('/image/{id}', 'UserController@uploadImage');
         });
+    });
+    Route::group([
+        'prefix' => 'snnipets',
+        'middleware' => 'auth:api'
+    ], function () {
+        Route::get('', 'SnnipetsController@getAll');
+        Route::post('', 'SnnipetsController@insert');
     });
 });
