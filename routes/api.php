@@ -25,7 +25,7 @@ Route::prefix('v1')->group(function () {
         Route::middleware('auth:api')->group(function () {
             Route::get('info', 'UserController@getUserInfo');
             Route::get('logout', 'UserController@logout');
-            Route::put('update', 'UserController@update');
+            Route::put('', 'UserController@update');
             Route::post('comment/{id}', 'UserController@addComment');
             Route::post('/image/{id}', 'UserController@uploadImage');
         });

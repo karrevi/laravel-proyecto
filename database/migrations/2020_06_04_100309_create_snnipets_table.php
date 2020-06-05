@@ -18,8 +18,6 @@ class CreateSnnipetsTable extends Migration
             $table->string('name');
             $table->string('code_snnipets');
             $table->string('extension');
-            $table->integer('commentable_id');
-            $table->string('commentable_type');
             $table->integer('user_id');
             $table->timestamps();
         });

@@ -41,4 +41,8 @@ class User extends Authenticatable
     {
         return $this->morphMany('\App\Comment', 'commentable');
     }
+    function snnipets()
+    {
+        return $this->belongsTo('\App\Snnipets');
+    }
 }
