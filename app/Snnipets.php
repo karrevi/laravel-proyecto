@@ -11,7 +11,7 @@ class Snnipets extends Model
     {
         return $this->belongsTo('\App\User');
     }
-    function comments()
+    public function comments()
     {
         return $this->morphMany('\App\Comment', 'commentable');
     }
