@@ -12,7 +12,7 @@ class SnnipetsController extends Controller
     public function getAll()
     {
         try {
-            $snnippets = Snnipets::find();
+            $snnippets = Snnipets::with('user')->get();
             return response($snnippets);
         } catch (\Exception $e) {
             return response([

@@ -43,6 +43,6 @@ class User extends Authenticatable
     }
     function snnipets()
     {
-        return $this->belongsTo('\App\Snnipets');
+        return $this->hasMany('\App\Snnipets');
     }
 }
