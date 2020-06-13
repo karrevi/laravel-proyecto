@@ -23,12 +23,8 @@ class SnnipetsController extends Controller
     public function insert(Request $request)
     {
         try {
-            $request->validate([
-                'name',
-                'code_snnipets',
-                'extension'
-            ]);
-            $body = $request->all();
+            $user_id = Auth::id();
+            $body = ['name' => $request->name, 'code_snnipets' => $request->code_snnipets, 'extension' => $request->extension, 'user_id' => $user_id];
             $snnippets = Snnipets::create($body);
             return response($snnippets, 201);
         } catch (\Exception $e) {
