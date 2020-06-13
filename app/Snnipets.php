@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Snnipets extends Model
 {
-    protected $guarded = [];
+    protected $fillable = [
+        'name', 'code_snnipets', 'extension', 'user_id'
+    ];
     public function user()
     {
         return $this->belongsTo('\App\User');
