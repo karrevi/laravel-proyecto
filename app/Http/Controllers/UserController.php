@@ -99,13 +99,14 @@ class UserController extends Controller
             ], 500);
         }
     }
-    public function uploadImage(Request $request, $id)
+    public function uploadImage(Request $request)
     {
         try {
-            $request->validate(['img' => 'required|image']);
-            $user = User::find($id);
-            $imageName = time() . '-' . request()->img->getClientOriginalName();
-            request()->img->move('images/users', $imageName);
+            $request->validate(['images' => 'required|image']);
+            $file = $request->file('images');
+            $user = Auth::user();
+            $imageName = $file->getClientOriginalName();
+            $file->move('images/users', $imageName);
             $user->update(['image_path' => $imageName]);
             return response([
                 'user' => $user,
