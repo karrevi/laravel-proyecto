@@ -27,7 +27,7 @@ Route::prefix('v1')->group(function () {
             Route::get('logout', 'UserController@logout');
             Route::put('update', 'UserController@update');
             Route::post('comment/{id}', 'UserController@addComment');
-            Route::post('image/{id}', 'UserController@uploadImage');
+            Route::post('image', 'UserController@uploadImage');
         });
     });
     Route::group([
